@@ -8,6 +8,7 @@ export class Repositories {
     public description: String,
     public url: String,
     public size: number,
-    public disabled: boolean
+    public disabled: boolean,
+    public archived: boolean
   ) {}
 }
