@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   apiKey: '71f6e6924960dcfa57355d7a4ca7eb04113e9c24',
+  gitHubUserUrl: 'https://api.github.com/users/danjoki?access_token=',
+  gitHubReposUrl: 'https://api.github.com/users/danjoki/repos',
 };
 
 /*
