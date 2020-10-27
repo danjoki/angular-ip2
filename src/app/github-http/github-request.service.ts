@@ -39,6 +39,7 @@ export class GithubRequestService {
       followers: number;
       created_at: Date;
       updated_at: Date;
+      avatar_url: String;
     }
     //The User Promise
     let gitHubUserPromise = new Promise((success, failed) => {
@@ -58,20 +59,22 @@ export class GithubRequestService {
             this.user.followers = response.followers;
             this.user.created_at = response.created_at;
             this.user.updated_at = response.updated_at;
+            this.user.avatar_url = response.avatar_url;
             success();
           },
           (error) => {
-            this.user.name = 'Error';
-            this.user.company = 'Error';
-            this.user.blog = 'Error';
-            this.user.location = 'Error';
-            this.user.email = 'Error';
-            this.user.bio = 'Error';
-            this.user.twitter_username = 'Error';
+            this.user.name = '';
+            this.user.company = '';
+            this.user.blog = '';
+            this.user.location = '';
+            this.user.email = '';
+            this.user.bio = '';
+            this.user.twitter_username = '';
             this.user.public_repos = 0;
             this.user.followers = 0;
             this.user.created_at = new Date();
             this.user.updated_at = new Date();
+            this.user.avatar_url = '';
             failed(error);
           }
         );

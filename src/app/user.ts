@@ -12,6 +12,7 @@ export class User {
     public public_repos: number,
     public followers: number,
     public created_at: Date,
-    public updated_at: Date
+    public updated_at: Date,
+    public avatar_url: String
   ) {}
 }
