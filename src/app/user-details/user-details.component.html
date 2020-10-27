@@ -3,7 +3,8 @@
   <div class="col-md-8">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">{{ goal.description }}</h5>
+        <img src="{{ avatar_url }}" alt="Profile picture" />
+        <h1 class="card-title">{{ user.name }}</h1>
         <p class="card-text">
           This goal will be complete in
           {{ goal.completeDate | dateCount }} days.
