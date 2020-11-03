@@ -12,8 +12,8 @@ export class UserDetailsComponent implements OnInit {
 
   constructor(private gitHubRequest: GithubRequestService) {}
 
-  ngOnInit(): void {
-    this.gitHubRequest.gitHubUsersRequest;
+  ngOnInit() {
+    this.gitHubRequest.gitHubUsersRequest();
     this.user = this.gitHubRequest.user;
   }
 }

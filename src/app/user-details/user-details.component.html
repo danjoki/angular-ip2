@@ -1,16 +1,25 @@
 <div class="row">
   <div class="col-md-2"></div>
-  <div class="col-md-8">
-    <div class="card">
-      <div class="card-body">
-        <img src="{{ avatar_url }}" alt="Profile picture" />
-        <h1 class="card-title">{{ user.name }}</h1>
-        <p class="card-text">
-          This goal will be complete in
-          {{ goal.completeDate | dateCount }} days.
-        </p>
+  <div class="col-md-6">
+    <div class="container mt-3">
+      <div class="media">
+        <img
+          src="https://avatars2.githubusercontent.com/u/4866485?v=4"
+          class="align-self-start mr-3 rounded"
+          style="width: 60px"
+        />
+        <div class="media-body">
+          <h2>{{ user.name }}</h2>
+          <p>{{ user.bio }}</p>
+        </div>
       </div>
+      <h4>Data</h4>
+      <p>
+        Public repos: {{ user.public_repos }} <br />
+        Followers: {{ user.followers }} <br />
+        Active for {{ user.created_at | dateCalculator }} days
+      </p>
     </div>
   </div>
-  <div class="col-md-2"></div>
+  <div class="col-md-4"></div>
 </div>

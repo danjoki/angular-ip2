@@ -11,7 +11,34 @@ import { Repositories } from '../repositories';
 export class GithubRequestService {
   user: User;
   repos: Repositories;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.user = new User(
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      0,
+      0,
+      new Date(),
+      new Date(),
+      ''
+    );
+    this.repos = new Repositories(
+      '',
+      '',
+      false,
+      '',
+      '',
+      '',
+      '',
+      0,
+      false,
+      false
+    );
+  }
 
   //Get my GitHub user details
   getGitHubInfo(): Observable<any> {
@@ -42,12 +69,26 @@ export class GithubRequestService {
       avatar_url: String;
     }
     //The User Promise
-    let gitHubUserPromise = new Promise((success, failed) => {
+    let urlForUserDetailsAPI = environment.gitHubUserUrl + environment.apiKey;
+    console.log('urlForUserDetailsAPI: ' + urlForUserDetailsAPI);
+    let gitHubUserPromise = new Promise((resolve, reject) => {
       this.http
-        .get<UserApi>(environment.gitHubUserUrl + environment.apiKey)
+        .get<UserApi>(urlForUserDetailsAPI)
         .toPromise()
         .then(
           (response) => {
+            // console.log('Name: ' + response.name);
+            // console.log('company: ' + response.company);
+            // console.log('blog: ' + response.blog);
+            // console.log('location: ' + response.location);
+            // console.log('email: ' + response.email);
+            // console.log('bio: ' + response.bio);
+            // console.log('twitter_username: ' + response.twitter_username);
+            // console.log('public_repos: ' + response.public_repos);
+            // console.log('followers: ' + response.followers);
+            // console.log('created_at: ' + response.created_at);
+            // console.log('updated_at: ' + response.updated_at);
+            // console.log('avatar_url: ' + response.avatar_url);
             this.user.name = response.name;
             this.user.company = response.company;
             this.user.blog = response.blog;
@@ -57,10 +98,11 @@ export class GithubRequestService {
             this.user.twitter_username = response.twitter_username;
             this.user.public_repos = response.public_repos;
             this.user.followers = response.followers;
-            this.user.created_at = response.created_at;
-            this.user.updated_at = response.updated_at;
+            this.user.created_at = new Date(response.created_at);
+            this.user.updated_at = new Date(response.updated_at);
             this.user.avatar_url = response.avatar_url;
-            success();
+            // console.log('Userrrr: ' + this.user.avatar_url);
+            resolve();
           },
           (error) => {
             this.user.name = '';
@@ -75,10 +117,11 @@ export class GithubRequestService {
             this.user.created_at = new Date();
             this.user.updated_at = new Date();
             this.user.avatar_url = '';
-            failed(error);
+            reject(error);
           }
         );
     });
+    console.log('gitHubUserPromise: ' + JSON.stringify(gitHubUserPromise));
     return gitHubUserPromise;
   }
 
@@ -103,6 +146,7 @@ export class GithubRequestService {
         .toPromise()
         .then(
           (response) => {
+            console.log('Response: ' + JSON.stringify(response));
             this.repos.name = response.name;
             this.repos.fullName = response.fullName;
             this.repos.accessIsPrivate = response.accessIsPrivate;
@@ -133,3 +177,7 @@ export class GithubRequestService {
     return gitHubReposPromise;
   }
 }
+
+let formatDate = (date) => {
+  return new Date(date).toISOString().replace(/T/, ' ').replace(/\..+/, '');
+};
